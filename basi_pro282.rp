@@ -1,0 +1,211 @@
+input
+  nivel              [string  01],
+  grupo              [string  05],
+  subgrupo           [string  03],
+  item               [string  06],
+  grupo_descricao    [string  60],
+  subgrupo_descricao [string  60],
+  item_descricao     [string  60],
+  preco              [float   92],
+  barras             [string  30]
+
+
+
+width         133
+bottom margin 0
+top margin    0
+left margin   0
+length        0
+
+sort nivel, grupo, subgrupo, item
+
+before report
+  set index                 to 0
+  set nivel_1               to ''
+  set grupo_1               to ''
+  set subgrupo_1            to ''
+  set item_1                to ''
+  set grupo_descricao_1     to ''
+  set subgrupo_descricao_1  to ''
+  set item_descricao_1      to '' 
+  set barras_1              to ''
+  set preco_1               to 0.00
+  
+  set nivel_2              to ''
+  set grupo_2              to ''
+  set subgrupo_2           to ''
+  set item_2               to ''
+  set grupo_descricao_2    to ''
+  set subgrupo_descricao_2 to ''
+  set item_descricao_2     to '' 
+  set barras_2             to ''
+  set preco_2              to 0.00
+
+detail
+   if index = 0
+   then begin
+      set index to 1
+
+      set nivel_1              to nivel
+      set grupo_1              to grupo
+      set subgrupo_1           to subgrupo
+      set item_1               to item
+      set grupo_descricao_1    to grupo_descricao
+      set subgrupo_descricao_1 to subgrupo_descricao
+      set item_descricao_1     to item_descricao 
+      set barras_1             to barras
+      set preco_1              to preco
+   end
+   else if index = 1
+   then begin
+      set index to 2
+ 
+      set nivel_2              to nivel
+      set grupo_2              to grupo
+      set subgrupo_2           to subgrupo
+      set item_2               to item
+      set grupo_descricao_2    to grupo_descricao
+      set subgrupo_descricao_2 to subgrupo_descricao
+      set item_descricao_2     to item_descricao 
+      set barras_2             to barras
+      set preco_2              to preco
+   end
+   else begin
+    
+        set index to 0
+
+        print '^XA' in col 001
+        print '^MMT' in col 001
+        print '^PW719' in col 001
+        print '^LL0432' in col 001
+        print '^LS0' in col 001
+        
+        /***************** Etiqueta 1 ***********************/
+        print '^FT25,96^A0N,20,19^FH^FD' /+ nivel_1 /+'.'/+ grupo_1 /+'.'/+ subgrupo_1 /+'.'/+ item_1 /+'^FS' in col 001
+        print '^FT25,126^A0N,20,19^FH^FDTAM: '/+ subgrupo_1/+'^FS' in col 001
+        print '^FT25,157^A0N,20,19^FH^FD' /+ grupo_descricao_1  /+'^FS' in col 001
+        print '^BY1,3,104^FT55,294^BCN,,Y,N^FD>;' /+ barras_1 /+'^FS' in col 001
+        print '^FT25,348^A0N,20,19^FH^FD' /+ grupo_descricao_1 /+'^FS' in col 001
+        print '^FT25,376^A0N,17,16^FH^FDCOR: ' /+ item_1 +'-'+ item_descricao_1 /+'^FS' in col 001
+        print '^FT81,406^A0N,17,16^FH^FDR$' ,  preco_1 , '^FS' 
+
+
+
+        /***************** Etiqueta 2 ***********************/
+        print '^FT264,96^A0N,20,19^FH^FD' /+ nivel_2 /+'.'/+ grupo_2 /+'.'/+ subgrupo_2 /+'.'/+ item_2 /+'^FS' in col 001
+        print '^FT264,126^A0N,20,19^FH^FDTAM: '/+ subgrupo_2/+'^FS' in col 001
+        print '^FT264,157^A0N,20,19^FH^FD' /+ grupo_descricao_2  /+'^FS' in col 001
+        print '^BY1,3,104^FT297,294^BCN,,Y,N^FD>;' /+ barras_2 /+'^FS' in col 001
+        print '^FT264,348^A0N,20,19^FH^FD' /+ grupo_descricao_2 /+'^FS' in col 001
+        print '^FT264,376^A0N,17,16^FH^FDCOR: ' /+ item_2 +'-'+ item_descricao_2 /+'^FS' in col 001
+        print '^FT324,406^A0N,17,16^FH^FDR$',  preco_2 , '^FS' 
+
+
+        /***************** Etiqueta 3 ***********************/
+        print '^FT504,96^A0N,20,19^FH^FD' /+ nivel /+'.'/+ grupo /+'.'/+ subgrupo /+'.'/+ item /+'^FS' in col 001
+        print '^FT504,126^A0N,20,19^FH^FDTAM: '/+ subgrupo/+'^FS' in col 001
+        print '^FT504,157^A0N,20,19^FH^FD' /+ grupo_descricao  /+'^FS' in col 001
+        print '^BY1,3,104^FT537,294^BCN,,Y,N^FD>;' /+ barras /+'^FS' in col 001
+        print '^FT504,348^A0N,20,19^FH^FD' /+ grupo_descricao /+'^FS' in col 001
+        print '^FT504,376^A0N,17,16^FH^FDCOR: ' /+ item +'-'+ item_descricao /+'^FS' in col 001
+        print '^FT563,406^A0N,17,16^FH^FDR$',  preco , '^FS' 
+
+        print '^PQ1,0,1,Y^XZ' in col 001
+
+
+   end
+
+after report
+   if index = 1
+   then begin
+        print '^XA' in col 001
+        print '^MMT' in col 001
+        print '^PW719' in col 001
+        print '^LL0432' in col 001
+        print '^LS0' in col 001
+      
+      /***************** Etiqueta 1 ***********************/
+        print '^FT25,96^A0N,20,19^FH^FD' /+ nivel_1 /+'.'/+ grupo_1 /+'.'/+ subgrupo_1 /+'.'/+ item_1 /+'^FS' in col 001
+        print '^FT25,126^A0N,20,19^FH^FDTAM: '/+ subgrupo_1/+'^FS' in col 001
+        print '^FT25,157^A0N,20,19^FH^FD' /+ grupo_descricao_1  /+'^FS' in col 001
+        print '^BY1,3,104^FT55,294^BCN,,Y,N^FD>;' /+ barras_1 /+'^FS' in col 001
+        print '^FT25,348^A0N,20,19^FH^FD' /+ grupo_descricao_1 /+'^FS' in col 001
+        print '^FT25,376^A0N,17,16^FH^FDCOR: ' /+ item_1 +'-'+ item_descricao_1 /+'^FS' in col 001
+        print '^FT81,406^A0N,17,16^FH^FDR$',  preco_1 , '^FS' 
+
+      print '^PQ1,0,1,Y^XZ' in col 001
+   end
+   else if index = 2
+   then begin
+         
+        print '^XA' in col 001
+        print '^MMT' in col 001
+        print '^PW719' in col 001
+        print '^LL0432' in col 001
+        print '^LS0' in col 001
+
+        /***************** Etiqueta 1 ***********************/
+        print '^FT25,96^A0N,20,19^FH^FD' /+ nivel_1 /+'.'/+ grupo_1 /+'.'/+ subgrupo_1 /+'.'/+ item_1 /+'^FS' in col 001
+        print '^FT25,126^A0N,20,19^FH^FDTAM: '/+ subgrupo_1/+'^FS' in col 001
+        print '^FT25,157^A0N,20,19^FH^FD' /+ grupo_descricao_1  /+'^FS' in col 001
+        print '^BY1,3,104^FT55,294^BCN,,Y,N^FD>;' /+ barras_1 /+'^FS' in col 001
+        print '^FT25,348^A0N,20,19^FH^FD' /+ grupo_descricao_1 /+'^FS' in col 001
+        print '^FT25,376^A0N,17,16^FH^FDCOR: ' /+ item_1 +'-'+ item_descricao_1 /+'^FS' in col 001
+        print '^FT81,406^A0N,17,16^FH^FDR$',  preco_1 , '^FS' 
+
+
+
+        /***************** Etiqueta 2 ***********************/
+        print '^FT264,96^A0N,20,19^FH^FD' /+ nivel_2 /+'.'/+ grupo_2 /+'.'/+ subgrupo_2 /+'.'/+ item_2 /+'^FS' in col 001
+        print '^FT264,126^A0N,20,19^FH^FDTAM: '/+ subgrupo_2/+'^FS' in col 001
+        print '^FT264,157^A0N,20,19^FH^FD' /+ grupo_descricao_2  /+'^FS' in col 001
+        print '^BY1,3,104^FT297,294^BCN,,Y,N^FD>;' /+ barras_2 /+'^FS' in col 001
+        print '^FT264,348^A0N,20,19^FH^FD' /+ grupo_descricao_2 /+'^FS' in col 001
+        print '^FT264,376^A0N,17,16^FH^FDCOR: ' /+ item_2 +'-'+ item_descricao_2 /+'^FS' in col 001
+        print '^FT324,406^A0N,17,16^FH^FDR$',  preco_2 , '^FS' 
+
+      print '^PQ1,0,1,Y^XZ' in col 001
+
+   end
+end
+
+
+
+
+^XA
+^MMT
+^PW719
+^LL0432
+^LS0
+
+//***************** Etiqueta 1 ***********************//
+^FT25,96^A0N,20,19^FH\^FD1.00001.001.000054^FS
+^FT25,126^A0N,20,19^FH\^FDTAM: G^FS
+^FT25,157^A0N,20,19^FH\^FDJAQUETA PU COM CAPUZ^FS
+^BY1,3,104^FT55,294^BCN,,Y,N
+^FD>;790823327208>65^FS
+^FT25,348^A0N,20,19^FH\^FDJAQUETA PU COM CAPUZ^FS
+^FT25,376^A0N,17,16^FH\^FDCOR: 000054 - PRETO^FS
+^FT81,406^A0N,17,16^FH\^FDR$ 649,00^FS
+
+//***************** Etiqueta 2 ***********************//
+^FT264,96^A0N,20,19^FH\^FD1.00001.001.000054^FS
+^FT264,126^A0N,20,19^FH\^FDTAM: G^FS
+^FT264,157^A0N,20,19^FH\^FDJAQUETA PU COM CAPUZ^FS
+^BY1,3,104^FT297,294^BCN,,Y,N
+^FD>;790823327208>65^FS
+^FT264,348^A0N,20,19^FH\^FDJAQUETA PU COM CAPUZ^FS
+^FT264,376^A0N,17,16^FH\^FDCOR: 000054 - PRETO^FS
+^FT324,406^A0N,17,16^FH\^FDR$ 649,00^FS
+
+//***************** Etiqueta 3 ***********************//
+^FT504,96^A0N,20,19^FH\^FD1.00001.001.000054^FS
+^FT504,126^A0N,20,19^FH\^FDTAM: G^FS
+^FT504,157^A0N,20,19^FH\^FDJAQUETA PU COM CAPUZ^FS
+^BY1,3,104^FT537,294^BCN,,Y,N
+^FD>;790823327208>65^FS
+^FT504,348^A0N,20,19^FH\^FDJAQUETA PU COM CAPUZ^FS
+^FT504,376^A0N,17,16^FH\^FDCOR: 000054 - PRETO^FS
+^FT563,406^A0N,17,16^FH\^FDR$ ^FS
+
+^PQ1,0,1,Y^XZ
